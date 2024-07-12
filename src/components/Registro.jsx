@@ -48,7 +48,7 @@ export const Registro = () => {
 
   return (
     <div>
-      <h1 className='text-center'>Bienvenidos al módulo de Registro de usuarios</h1>
+      <h1 className='text-center my-5'>Bienvenidos al módulo de Registro de usuarios</h1>
       <div className='container'>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
