@@ -226,7 +226,6 @@ export const CapituloIII = () => {
               </table>
             </div>
           </div>
-          <p className='text-justify'>Nota: Se entiende por Terceros que <strong><u>NO</u></strong> hacen parte del grupo de viaje a cualquier persona que no sea entrevistada y que haya pagado en nombre de usted o su familia. Se entiende por Terceros que <strong><u>SÍ</u></strong> hacen parte del grupo de viaje a cualquier persona que esté viajando con usted y con la que comparte los gastos de su viaje.</p>
         </div>
 
         <div className="mt-5">
@@ -246,7 +245,7 @@ export const CapituloIII = () => {
               <tbody>
                 <tr>
                   <td>
-                    <select className="form-control col-sm-12">
+                    <select className="form-control col-sm-12" id="pais-visita" name="pais-visita">
                       <option value="Venezuela">Venezuela</option>
                       <option value="Paraguay">Paraguay</option>
                       <option value="Chile">Chile</option>
@@ -256,24 +255,24 @@ export const CapituloIII = () => {
                     </select>
                   </td>
                   <td>
-                    <input type="text" className="form-control" placeholder="" />
-                    <label className="form-check-label small" htmlFor="paises"># Noches</label>
+                    <input type="text" className="form-control" id="noches-vivienda-propia" name="noches-vivienda-propia" placeholder="" />
+                    <label className="form-check-label small" htmlFor="noches-vivienda-propia"># Noches</label>
                   </td>
                   <td>
-                    <input type="text" className="form-control" placeholder="" />
-                    <label className="form-check-label small" htmlFor="paises"># Noches</label>
+                    <input type="text" className="form-control" id="noches-hotel" name="noches-hotel" placeholder="" />
+                    <label className="form-check-label small" htmlFor="noches-hotel"># Noches</label>
                   </td>
                   <td>
-                    <input type="text" className="form-control" placeholder="" />
-                    <label className="form-check-label small" htmlFor="paises"># Noches</label>
+                    <input type="text" className="form-control" id="noches-familiar-amigos" name="noches-familiar-amigos" placeholder="" />
+                    <label className="form-check-label small" htmlFor="noches-familiar-amigos"># Noches</label>
                   </td>
                   <td>
-                    <input type="text" className="form-control" placeholder="" />
-                    <label className="form-check-label small" htmlFor="paises"># Noches</label>
+                    <input type="text" className="form-control" id="noches-alquiler" name="noches-alquiler" placeholder="" />
+                    <label className="form-check-label small" htmlFor="noches-alquiler"># Noches</label>
                   </td>
                   <td>
-                    <input type="text" className="form-control" placeholder="" />
-                    <label className="form-check-label small" htmlFor="paises"># Noches</label>
+                    <input type="text" className="form-control" id="noches-otro" name="noches-otro" placeholder="" />
+                    <label className="form-check-label small" htmlFor="noches-otro"># Noches</label>
                   </td>
                 </tr>
               </tbody>
@@ -283,8 +282,8 @@ export const CapituloIII = () => {
 
         <div className='container text-center mb-5'>
           <button type="submit" className="btn btn-success">Enviar</button>
-          <button type="submit" className="btn btn-primary ml-2">Editar</button>
-          <button type="submit" className="btn btn-danger ml-2">Eliminar</button>
+          <button type="button" className="btn btn-primary ml-2">Editar</button>
+          <button type="button" className="btn btn-danger ml-2">Eliminar</button>
         </div>
       </form>
     </div>
