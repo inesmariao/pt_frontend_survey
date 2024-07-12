@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+.font-weight-semibold {
+  font-weight: 600;
+}
+
+.no-border-table {
+  border-collapse: collapse;
+}
+.no-border-table th,
+.no-border-table td {
+  border: none;
+}
