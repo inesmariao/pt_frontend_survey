@@ -28,9 +28,11 @@ export const CapituloIII = () => {
   });
 
   const [entries, setEntries] = useState([]);
+  const [monedas, setMonedas] = useState([]);
 
   useEffect(() => {
     fetchEntries();
+    fetchMonedas();
   }, []);
 
   const fetchEntries = async () => {
@@ -39,6 +41,15 @@ export const CapituloIII = () => {
       setEntries(response.data);
     } catch (error) {
       console.error('Error fetching entries:', error);
+    }
+  };
+
+  const fetchMonedas = async () => {
+    try {
+      const response = await axios.get('/api/monedas');
+      setMonedas(response.data);
+    } catch (error) {
+      console.error('Error fetching currencies:', error);
     }
   };
 
@@ -93,138 +104,136 @@ export const CapituloIII = () => {
   return (
     <div className='col-10 text-center mb-5 px-5 border-bottom border-left border-right border-dark'>
       <form onSubmit={handleSubmit} className='font-weight-semibold'>
-        <div className="form-group">
-          <hr className="border border-top-2 solid border-dark m-0" />
-          <h4 className="text-left my-4">Capítulo III</h4>
-          <p className='text-justify'>Gastos: Registre el valor que fue pagado por Usted, por Terceros que <strong><u>NO</u></strong> hacen parte de su grupo de viaje y por Terceros que <strong><u>SÍ</u></strong> hacen parte de su grupo de viaje, así como el tipo de moneda utilizado y el número de personas que cubre cada gasto.</p>
-          <p className="text-left">9. Gastos.</p>
-          <div className="container mt-2 d-flex justify-content-center align-items-center" style={{ minHeight: '300px' }}>
-            <div className="table-responsive">
-              <table className="table table-bordered">
-                <thead>
-                  <tr>
-                    <th style={{ width: '15%' }}>Gastos</th>
-                    <th style={{ width: '10%' }}>¿Hubo gasto?</th>
-                    <th colSpan="2" style={{ width: '20%' }}>Pagado por usted</th>
-                    <th colSpan="2" style={{ width: '20%' }}>Terceros que NO hacen parte del grupo</th>
-                    <th colSpan="2" style={{ width: '20%' }}>Terceros que SI hacen parte del grupo</th>
-                    <th style={{ width: '15%' }}>¿Para cuántas personas?</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>a. Paquete turístico</td>
-                    <td>
-                      <div className="form-check d-flex justify-content-center align-items-center">
-                        <input className="form-check-input" type="radio" name="gasto_paquete_turistico" id="paquete_si" value="si" />
-                        <label className="form-check-label ml-2" htmlFor="paquete_si">Sí</label>
-                      </div>
-                      <div className="form-check d-flex justify-content-center align-items-center">
-                        <input className="form-check-input" type="radio" name="gasto_paquete_turistico" id="paquete_no" value="no" />
-                        <label className="form-check-label ml-3" htmlFor="paquete_no">No</label>
-                      </div>
-                    </td>
-                    <td style={{ width: '10%' }}>
-                      <label className="form-check-label small" htmlFor="valor_paquete_usted">Valor</label>
-                      <div className="d-flex justify-content-center align-items-center">
-                        <input type="text" className="form-control" id="valor_paquete_usted" name="valor_paquete_usted" value={form.valor_paquete_usted} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
-                      </div>
-                    </td>
-                    <td style={{ width: '10%' }}>
-                      <label className="form-check-label small" htmlFor="moneda_paquete_usted">Tipo de Moneda</label>
-                      <div className="d-flex justify-content-center align-items-center">
-                        <input type="text" className="form-control" id="moneda_paquete_usted" name="moneda_paquete_usted" value={form.moneda_paquete_usted} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
-                      </div>
-                    </td>
-                    <td style={{ width: '10%' }}>
-                      <label className="form-check-label small" htmlFor="valor_paquete_terceros_no_grupo">Valor</label>
-                      <div className="d-flex justify-content-center align-items-center">
-                        <input type="text" className="form-control" id="valor_paquete_terceros_no_grupo" name="valor_paquete_terceros_no_grupo" value={form.valor_paquete_terceros_no_grupo} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
-                      </div>
-                    </td>
-                    <td style={{ width: '10%' }}>
-                      <label className="form-check-label small" htmlFor="moneda_paquete_terceros_no_grupo">Tipo de Moneda</label>
-                      <div className="d-flex justify-content-center align-items-center">
-                        <input type="text" className="form-control" id="moneda_paquete_terceros_no_grupo" name="moneda_paquete_terceros_no_grupo" value={form.moneda_paquete_terceros_no_grupo} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
-                      </div>
-                    </td>
-                    <td style={{ width: '10%' }}>
-                      <label className="form-check-label small" htmlFor="valor_paquete_terceros_si_grupo">Valor</label>
-                      <div className="d-flex justify-content-center align-items-center">
-                        <input type="text" className="form-control" id="valor_paquete_terceros_si_grupo" name="valor_paquete_terceros_si_grupo" value={form.valor_paquete_terceros_si_grupo} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
-                      </div>
-                    </td>
-                    <td style={{ width: '10%' }}>
-                      <label className="form-check-label small" htmlFor="moneda_paquete_terceros_si_grupo">Tipo de Moneda</label>
-                      <div className="d-flex justify-content-center align-items-center">
-                        <input type="text" className="form-control" id="moneda_paquete_terceros_si_grupo" name="moneda_paquete_terceros_si_grupo" value={form.moneda_paquete_terceros_si_grupo} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
-                      </div>
-                    </td>
-                    <td style={{ width: '10%' }} className='text-center align-middle p-0'>
-                      <label className="form-check-label small" htmlFor="personas_paquete">Personas</label>
-                      <div className="d-flex justify-content-center align-items-center">
-                        <input type="text" className="form-control" id="personas_paquete" name="personas_paquete" value={form.personas_paquete} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>b. Transporte Internacional</td>
-                    <td>
-                      <div className="form-check d-flex justify-content-center align-items-center">
-                        <input className="form-check-input" type="radio" name="gasto_transporte_internacional" id="transporte_si" value="si" />
-                        <label className="form-check-label ml-2" htmlFor="transporte_si">Sí</label>
-                      </div>
-                      <div className="form-check d-flex justify-content-center align-items-center">
-                        <input className="form-check-input" type="radio" name="gasto_transporte_internacional" id="transporte_no" value="no" />
-                        <label className="form-check-label ml-3" htmlFor="transporte_no">No</label>
-                      </div>
-                    </td>
-                    <td style={{ width: '10%' }}>
-                      <label className="form-check-label small" htmlFor="valor_transporte_usted">Valor</label>
-                      <div className="d-flex justify-content-center align-items-center">
-                        <input type="text" className="form-control" id="valor_transporte_usted" name="valor_transporte_usted" value={form.valor_transporte_usted} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
-                      </div>
-                    </td>
-                    <td style={{ width: '10%' }}>
-                      <label className="form-check-label small" htmlFor="moneda_transporte_usted">Tipo de Moneda</label>
-                      <div className="d-flex justify-content-center align-items-center">
-                        <input type="text" className="form-control" id="moneda_transporte_usted" name="moneda_transporte_usted" value={form.moneda_transporte_usted} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
-                      </div>
-                    </td>
-                    <td style={{ width: '10%' }}>
-                      <label className="form-check-label small" htmlFor="valor_transporte_terceros_no_grupo">Valor</label>
-                      <div className="d-flex justify-content-center align-items-center">
-                        <input type="text" className="form-control" id="valor_transporte_terceros_no_grupo" name="valor_transporte_terceros_no_grupo" value={form.valor_transporte_terceros_no_grupo} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
-                      </div>
-                    </td>
-                    <td style={{ width: '10%' }}>
-                      <label className="form-check-label small" htmlFor="moneda_transporte_terceros_no_grupo">Tipo de Moneda</label>
-                      <div className="d-flex justify-content-center align-items-center">
-                        <input type="text" className="form-control" id="moneda_transporte_terceros_no_grupo" name="moneda_transporte_terceros_no_grupo" value={form.moneda_transporte_terceros_no_grupo} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
-                      </div>
-                    </td>
-                    <td style={{ width: '10%' }}>
-                      <label className="form-check-label small" htmlFor="valor_transporte_terceros_si_grupo">Valor</label>
-                      <div className="d-flex justify-content-center align-items-center">
-                        <input type="text" className="form-control" id="valor_transporte_terceros_si_grupo" name="valor_transporte_terceros_si_grupo" value={form.valor_transporte_terceros_si_grupo} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
-                      </div>
-                    </td>
-                    <td style={{ width: '10%' }}>
-                      <label className="form-check-label small" htmlFor="moneda_transporte_terceros_si_grupo">Tipo de Moneda</label>
-                      <div className="d-flex justify-content-center align-items-center">
-                        <input type="text" className="form-control" id="moneda_transporte_terceros_si_grupo" name="moneda_transporte_terceros_si_grupo" value={form.moneda_transporte_terceros_si_grupo} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
-                      </div>
-                    </td>
-                    <td style={{ width: '10%' }} className='text-center align-middle p-0'>
-                      <label className="form-check-label small" htmlFor="personas_transporte">Personas</label>
-                      <div className="d-flex justify-content-center align-items-center">
-                        <input type="text" className="form-control" id="personas_transporte" name="personas_transporte" value={form.personas_transporte} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+        <hr className="border border-top-2 solid border-dark m-0" />
+        <h4 className="text-left my-4">Capítulo III</h4>
+        <p className='text-justify'>Gastos: Registre el valor que fue pagado por Usted, por Terceros que <strong><u>NO</u></strong> hacen parte de su grupo de viaje y por Terceros que <strong><u>SÍ</u></strong> hacen parte de su grupo de viaje, así como el tipo de moneda utilizado y el número de personas que cubre cada gasto.</p>
+        <p className="text-left">9. Gastos.</p>
+        <div className="container mt-2 d-flex justify-content-center align-items-center" style={{ minHeight: '300px' }}>
+          <div className="table-responsive">
+            <table className="table table-bordered">
+              <thead>
+                <tr>
+                  <th style={{ width: '15%' }}>Gastos</th>
+                  <th style={{ width: '10%' }}>¿Hubo gasto?</th>
+                  <th colSpan="2" style={{ width: '20%' }}>Pagado por usted</th>
+                  <th colSpan="2" style={{ width: '20%' }}>Terceros que NO hacen parte del grupo</th>
+                  <th colSpan="2" style={{ width: '20%' }}>Terceros que SI hacen parte del grupo</th>
+                  <th style={{ width: '15%' }}>¿Para cuántas personas?</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>a. Paquete turístico</td>
+                  <td>
+                    <div className="form-check d-flex justify-content-center align-items-center">
+                      <input className="form-check-input" type="radio" name="gasto_paquete_turistico" id="paquete_si" value="si" />
+                      <label className="form-check-label ml-2" htmlFor="paquete_si">Sí</label>
+                    </div>
+                    <div className="form-check d-flex justify-content-center align-items-center">
+                      <input className="form-check-input" type="radio" name="gasto_paquete_turistico" id="paquete_no" value="no" />
+                      <label className="form-check-label ml-3" htmlFor="paquete_no">No</label>
+                    </div>
+                  </td>
+                  <td style={{ width: '10%' }}>
+                    <label className="form-check-label small" htmlFor="valor_paquete_usted">Valor</label>
+                    <div className="d-flex justify-content-center align-items-center">
+                      <input type="text" className="form-control" id="valor_paquete_usted" name="valor_paquete_usted" value={form.valor_paquete_usted} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
+                    </div>
+                  </td>
+                  <td style={{ width: '10%' }}>
+                    <label className="form-check-label small" htmlFor="moneda_paquete_usted">Tipo de Moneda</label>
+                    <div className="d-flex justify-content-center align-items-center">
+                      <input type="text" className="form-control" id="moneda_paquete_usted" name="moneda_paquete_usted" value={form.moneda_paquete_usted} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
+                    </div>
+                  </td>
+                  <td style={{ width: '10%' }}>
+                    <label className="form-check-label small" htmlFor="valor_paquete_terceros_no_grupo">Valor</label>
+                    <div className="d-flex justify-content-center align-items-center">
+                      <input type="text" className="form-control" id="valor_paquete_terceros_no_grupo" name="valor_paquete_terceros_no_grupo" value={form.valor_paquete_terceros_no_grupo} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
+                    </div>
+                  </td>
+                  <td style={{ width: '10%' }}>
+                    <label className="form-check-label small" htmlFor="moneda_paquete_terceros_no_grupo">Tipo de Moneda</label>
+                    <div className="d-flex justify-content-center align-items-center">
+                      <input type="text" className="form-control" id="moneda_paquete_terceros_no_grupo" name="moneda_paquete_terceros_no_grupo" value={form.moneda_paquete_terceros_no_grupo} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
+                    </div>
+                  </td>
+                  <td style={{ width: '10%' }}>
+                    <label className="form-check-label small" htmlFor="valor_paquete_terceros_si_grupo">Valor</label>
+                    <div className="d-flex justify-content-center align-items-center">
+                      <input type="text" className="form-control" id="valor_paquete_terceros_si_grupo" name="valor_paquete_terceros_si_grupo" value={form.valor_paquete_terceros_si_grupo} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
+                    </div>
+                  </td>
+                  <td style={{ width: '10%' }}>
+                    <label className="form-check-label small" htmlFor="moneda_paquete_terceros_si_grupo">Tipo de Moneda</label>
+                    <div className="d-flex justify-content-center align-items-center">
+                      <input type="text" className="form-control" id="moneda_paquete_terceros_si_grupo" name="moneda_paquete_terceros_si_grupo" value={form.moneda_paquete_terceros_si_grupo} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
+                    </div>
+                  </td>
+                  <td style={{ width: '10%' }} className='text-center align-middle p-0'>
+                    <label className="form-check-label small" htmlFor="personas_paquete">Personas</label>
+                    <div className="d-flex justify-content-center align-items-center">
+                      <input type="text" className="form-control" id="personas_paquete" name="personas_paquete" value={form.personas_paquete} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>b. Transporte Internacional</td>
+                  <td>
+                    <div className="form-check d-flex justify-content-center align-items-center">
+                      <input className="form-check-input" type="radio" name="gasto_transporte_internacional" id="transporte_si" value="si" />
+                      <label className="form-check-label ml-2" htmlFor="transporte_si">Sí</label>
+                    </div>
+                    <div className="form-check d-flex justify-content-center align-items-center">
+                      <input className="form-check-input" type="radio" name="gasto_transporte_internacional" id="transporte_no" value="no" />
+                      <label className="form-check-label ml-3" htmlFor="transporte_no">No</label>
+                    </div>
+                  </td>
+                  <td style={{ width: '10%' }}>
+                    <label className="form-check-label small" htmlFor="valor_transporte_usted">Valor</label>
+                    <div className="d-flex justify-content-center align-items-center">
+                      <input type="text" className="form-control" id="valor_transporte_usted" name="valor_transporte_usted" value={form.valor_transporte_usted} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
+                    </div>
+                  </td>
+                  <td style={{ width: '10%' }}>
+                    <label className="form-check-label small" htmlFor="moneda_transporte_usted">Tipo de Moneda</label>
+                    <div className="d-flex justify-content-center align-items-center">
+                      <input type="text" className="form-control" id="moneda_transporte_usted" name="moneda_transporte_usted" value={form.moneda_transporte_usted} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
+                    </div>
+                  </td>
+                  <td style={{ width: '10%' }}>
+                    <label className="form-check-label small" htmlFor="valor_transporte_terceros_no_grupo">Valor</label>
+                    <div className="d-flex justify-content-center align-items-center">
+                      <input type="text" className="form-control" id="valor_transporte_terceros_no_grupo" name="valor_transporte_terceros_no_grupo" value={form.valor_transporte_terceros_no_grupo} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
+                    </div>
+                  </td>
+                  <td style={{ width: '10%' }}>
+                    <label className="form-check-label small" htmlFor="moneda_transporte_terceros_no_grupo">Tipo de Moneda</label>
+                    <div className="d-flex justify-content-center align-items-center">
+                      <input type="text" className="form-control" id="moneda_transporte_terceros_no_grupo" name="moneda_transporte_terceros_no_grupo" value={form.moneda_transporte_terceros_no_grupo} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
+                    </div>
+                  </td>
+                  <td style={{ width: '10%' }}>
+                    <label className="form-check-label small" htmlFor="valor_transporte_terceros_si_grupo">Valor</label>
+                    <div className="d-flex justify-content-center align-items-center">
+                      <input type="text" className="form-control" id="valor_transporte_terceros_si_grupo" name="valor_transporte_terceros_si_grupo" value={form.valor_transporte_terceros_si_grupo} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
+                    </div>
+                  </td>
+                  <td style={{ width: '10%' }}>
+                    <label className="form-check-label small" htmlFor="moneda_transporte_terceros_si_grupo">Tipo de Moneda</label>
+                    <div className="d-flex justify-content-center align-items-center">
+                      <input type="text" className="form-control" id="moneda_transporte_terceros_si_grupo" name="moneda_transporte_terceros_si_grupo" value={form.moneda_transporte_terceros_si_grupo} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
+                    </div>
+                  </td>
+                  <td style={{ width: '10%' }} className='text-center align-middle p-0'>
+                    <label className="form-check-label small" htmlFor="personas_transporte">Personas</label>
+                    <div className="d-flex justify-content-center align-items-center">
+                      <input type="text" className="form-control" id="personas_transporte" name="personas_transporte" value={form.personas_transporte} onChange={handleChange} style={{ maxWidth: '50px', maxHeight: '30px' }} />
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 

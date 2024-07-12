@@ -8,6 +8,7 @@ export const CapituloII = () => {
     organiza_viaje: [],
     otro_organiza_viaje: '',
     tipo_servicios: [],
+    otro_transporte: '',
     otro_servicio: ''
   });
 
@@ -51,6 +52,7 @@ export const CapituloII = () => {
         organiza_viaje: [],
         otro_organiza_viaje: '',
         tipo_servicios: [],
+        otro_transporte: '',
         otro_servicio: ''
       });
     } catch (error) {
@@ -82,7 +84,7 @@ export const CapituloII = () => {
                 <div className="row">
                   <div className="col-sm-6">
                     {['1. Visita a familiares o amigos', '2. Vacaciones (recreación, ocio, sol y playa)', '3. Compras', '4. Turismo Cultural', '5. Asistencia a eventos artísticos', '6. Estudio y/o formación', '7. Tratamiento de salud y belleza', '8. Religioso'].map((option, index) => (
-                      <div className="form-check" key={index}>
+                      <div className="form-check" key={`motivo-viaje-${index}`}>
                         <input
                           className="form-check-input"
                           type="radio"
@@ -101,7 +103,7 @@ export const CapituloII = () => {
                   </div>
                   <div className="col-sm-6">
                     {['9. Asistencia a Congresos, Seminarios, convenciones', '10. Trabajo remunerado en destino', '11. Trabajo o negocios (no remunerado en destino)', '12. Participación en eventos artísticos y/o deportivos', '13. Tránsito', '14. Otro'].map((option, index) => (
-                      <div className="form-check" key={index + 8}>
+                      <div className="form-check" key={`motivo-viaje-${index + 8}`}>
                         <input
                           className="form-check-input"
                           type="radio"
@@ -135,7 +137,7 @@ export const CapituloII = () => {
               <label className="col-sm-12 my-4">7. ¿Cómo organizó su viaje? <span className='text-info'>(puede seleccionar más de una opción)</span></label>
               <div className="col-sm-8">
                 {['Paquete turístico organizado por una agencia de viajes en Colombia', 'Paquete turístico organizado por una agencia de viajes en el país de visita', 'Paquete turístico organizado por terceros que no sean agencias de viajes', 'Viaje organizado por cuenta propia', 'Otro'].map((option, index) => (
-                  <div className="form-check" key={index}>
+                  <div className="form-check" key={`organiza-viaje-${index}`}>
                     <input
                       className="form-check-input"
                       type="checkbox"
@@ -165,7 +167,7 @@ export const CapituloII = () => {
               <label className="col-sm-12 my-4">8. ¿Qué tipo de servicios comprendió el paquete turístico? <span className='text-info'>(puede seleccionar más de una opción)</span></label>
               <div className="col-sm-6">
                 {['Alojamiento', 'Transporte internacional', 'Alimentos y bebidas (No incluidos en el alojamiento)', 'Servicios culturales y de entretenimiento', 'Servicios deportivos y recreacionales (Ej.: Actividades de aventura, ecológicas, otros)'].map((option, index) => (
-                  <div className="form-check" key={index}>
+                  <div className="form-check" key={`tipo-servicio-${index}`}>
                     <input
                       className="form-check-input"
                       type="checkbox"
@@ -182,7 +184,7 @@ export const CapituloII = () => {
               </div>
               <div className="col-sm-6">
                 {['Tours en destino (con servicio de guía)', 'Transporte aéreo interno en el destino'].map((option, index) => (
-                  <div className="form-check" key={index + 5}>
+                  <div className="form-check" key={`tipo-servicio-${index + 5}`}>
                     <input
                       className="form-check-input"
                       type="checkbox"
@@ -209,7 +211,7 @@ export const CapituloII = () => {
                   </div>
                 </div>
                 <div className="form-group row">
-                  <label className="col-sm-12">9. Otro servicio. ¿Cuál?</label>
+                  <label className="col-sm-12">8. Otros servicios ¿Cuáles?</label>
                   <div className="col-sm-12">
                     <input
                       type="text"
@@ -222,18 +224,25 @@ export const CapituloII = () => {
                 </div>
               </div>
             </div>
+            <div className="row justify-content-center">
+              <button type="submit" className="btn btn-primary my-4">Guardar Capítulo II</button>
+            </div>
           </div>
         </div>
-        <button type="submit" className="btn btn-primary my-4">Guardar Capítulo II</button>
       </form>
-      <ul className="list-group">
-        {entries.map(entry => (
-          <li key={entry.id} className="list-group-item d-flex justify-content-between align-items-center">
-            {entry.motivo_viaje} - {entry.otro_motivo_viaje} - {entry.organiza_viaje.join(', ')} - {entry.tipo_servicios.join(', ')}
-            <button className="btn btn-danger" onClick={() => handleDelete(entry.id)}>Eliminar</button>
-          </li>
-        ))}
-      </ul>
+
+      {/* Estas entradas no se muestran al usaurio final pero si se siguen ejecutando 
+      <div className="mt-4">
+        <h5>Entradas</h5>
+        <ul className="list-group">
+          {entries.map(entry => (
+            <li key={entry.id} className="list-group-item d-flex justify-content-between align-items-center">
+              {entry.motivo_viaje}
+              <button className="btn btn-danger btn-sm" onClick={() => handleDelete(entry.id)}>Eliminar</button>
+            </li>
+          ))}
+        </ul>
+      </div> */}
     </div>
   );
 };

@@ -12,11 +12,33 @@ export const CapituloI = () => {
     cantidad_personas_I: ''
   });
 
+  const [paises, setPaises] = useState([]);
+  const [nacionalidades, setNacionalidades] = useState([]);
   const [entries, setEntries] = useState([]);
 
   useEffect(() => {
+    fetchPaises();
+    fetchNacionalidades();
     fetchEntries();
   }, []);
+
+  const fetchPaises = async () => {
+    try {
+      const response = await axios.get('/api/paises/');
+      setPaises(response.data);
+    } catch (error) {
+      console.error('Error fetching paises', error);
+    }
+  };
+
+  const fetchNacionalidades = async () => {
+    try {
+      const response = await axios.get('/api/nacionalidades/');
+      setNacionalidades(response.data);
+    } catch (error) {
+      console.error('Error fetching nacionalidades', error);
+    }
+  };
 
   const fetchEntries = async () => {
     try {
@@ -67,44 +89,58 @@ export const CapituloI = () => {
         <h3 className="text-left">Capítulo I</h3>
         <div className="row text-left">
           <div className="col pt-2">
-            {/* Form Fields */}
             <div className="form-group row my-4">
-              <label className="col-sm-4">1. ¿Cuál es su país de residencia permanente?</label>
+              <label className="col-sm-4" htmlFor="pais_residencia_I">1. ¿Cuál es su país de residencia permanente?</label>
               <div className="col-sm-8">
-                <input
-                  type="text"
-                  className="form-control"
+                <select
+                  id="pais_residencia_I"
                   name="pais_residencia_I"
+                  className="form-control"
                   value={form.pais_residencia_I}
                   onChange={handleChange}
                   required
-                />
+                >
+                  <option value="">Seleccione un país</option>
+                  {paises.map(pais => (
+                    <option key={pais.id} value={pais.id}>
+                      {pais.nombre}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             <div className="form-group row">
-              <label className="col-sm-4">2. ¿Cuál es su nacionalidad?</label>
+              <label className="col-sm-4" htmlFor="nacionalidad_I">2. ¿Cuál es su nacionalidad?</label>
               <div className="col-sm-8">
-                <input
-                  type="text"
-                  className="form-control"
+                <select
+                  id="nacionalidad_I"
                   name="nacionalidad_I"
+                  className="form-control"
                   value={form.nacionalidad_I}
                   onChange={handleChange}
                   required
-                />
+                >
+                  <option value="">Seleccione una nacionalidad</option>
+                  {nacionalidades.map(nacionalidad => (
+                    <option key={nacionalidad.id} value={nacionalidad.id}>
+                      {nacionalidad.nombre}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             <div className="row">
               <div className="col-sm-5">
                 <div className="form-group row justify-left align-items-center">
-                  <label className="col-sm-3 col-form-label">3. Sexo</label>
+                  <label className="col-sm-3 col-form-label" htmlFor="sexo_I">3. Sexo</label>
                   <div className="col-sm d-flex flex-wrap align-items-center">
                     <label className="col-form-label mr-3">
                       <input
                         type="radio"
+                        id="sexo_masculino_I"
                         name="sexo_I"
-                        value="masculino"
-                        checked={form.sexo_I === 'masculino'}
+                        value="M"
+                        checked={form.sexo_I === 'M'}
                         onChange={handleChange}
                         required
                       /> Masculino
@@ -112,9 +148,10 @@ export const CapituloI = () => {
                     <label className="col-form-label mr-3">
                       <input
                         type="radio"
+                        id="sexo_femenino_I"
                         name="sexo_I"
-                        value="femenino"
-                        checked={form.sexo_I === 'femenino'}
+                        value="F"
+                        checked={form.sexo_I === 'F'}
                         onChange={handleChange}
                         required
                       /> Femenino
@@ -124,10 +161,11 @@ export const CapituloI = () => {
               </div>
               <div className="col-sm-4">
                 <div className="form-group d-flex">
-                  <label className="col-sm-4 col-form-label">Edad</label>
+                  <label className="col-sm-4 col-form-label" htmlFor="edad_I">Edad</label>
                   <div className="col-sm-12">
                     <input
                       type="number"
+                      id="edad_I"
                       className="form-control"
                       name="edad_I"
                       value={form.edad_I}
@@ -145,9 +183,10 @@ export const CapituloI = () => {
                 <label className="mr-3">
                   <input
                     type="radio"
+                    id="viaja_solo_I"
                     name="con_quien_viaja_I"
-                    value="solo"
-                    checked={form.con_quien_viaja_I === 'solo'}
+                    value="S"
+                    checked={form.con_quien_viaja_I === 'S'}
                     onChange={handleChange}
                     required
                   /> Solo
@@ -155,9 +194,10 @@ export const CapituloI = () => {
                 <label className="mr-3">
                   <input
                     type="radio"
+                    id="viaja_amigos_I"
                     name="con_quien_viaja_I"
-                    value="amigos"
-                    checked={form.con_quien_viaja_I === 'amigos'}
+                    value="A"
+                    checked={form.con_quien_viaja_I === 'A'}
                     onChange={handleChange}
                     required
                   /> Amigos
@@ -165,9 +205,10 @@ export const CapituloI = () => {
                 <label className="mr-3">
                   <input
                     type="radio"
+                    id="viaja_trabajo_I"
                     name="con_quien_viaja_I"
-                    value="companeros_trabajo"
-                    checked={form.con_quien_viaja_I === 'companeros_trabajo'}
+                    value="T"
+                    checked={form.con_quien_viaja_I === 'T'}
                     onChange={handleChange}
                     required
                   /> Compañeros de trabajo
@@ -175,9 +216,10 @@ export const CapituloI = () => {
                 <label className="mr-3">
                   <input
                     type="radio"
+                    id="viaja_familia_I"
                     name="con_quien_viaja_I"
-                    value="familia"
-                    checked={form.con_quien_viaja_I === 'familia'}
+                    value="F"
+                    checked={form.con_quien_viaja_I === 'F'}
                     onChange={handleChange}
                     required
                   /> Familia
@@ -185,21 +227,23 @@ export const CapituloI = () => {
                 <label>
                   <input
                     type="radio"
+                    id="viaja_otro_I"
                     name="con_quien_viaja_I"
-                    value="otro"
-                    checked={form.con_quien_viaja_I === 'otro'}
+                    value="O"
+                    checked={form.con_quien_viaja_I === 'O'}
                     onChange={handleChange}
                     required
                   /> Otro
                 </label>
               </div>
             </div>
-            {form.con_quien_viaja_I === 'otro' && (
+            {form.con_quien_viaja_I === 'O' && (
               <div className="form-group row">
-                <label className="col-sm-4">Especifique</label>
+                <label className="col-sm-4" htmlFor="viaja_otro_especifique_I">Especifique</label>
                 <div className="col-sm-8">
                   <input
                     type="text"
+                    id="viaja_otro_especifique_I"
                     className="form-control"
                     name="viaja_otro_especifique_I"
                     value={form.viaja_otro_especifique_I}
@@ -210,10 +254,11 @@ export const CapituloI = () => {
               </div>
             )}
             <div className="form-group row">
-              <label className="col-sm-6">5. ¿Incluyéndolo a usted, cuántas personas viajan?</label>
+              <label className="col-sm-6" htmlFor="cantidad_personas_I">5. ¿Incluyéndolo a usted, cuántas personas viajan?</label>
               <div className="col-sm-2">
                 <input
                   type="number"
+                  id="cantidad_personas_I"
                   className="form-control"
                   name="cantidad_personas_I"
                   value={form.cantidad_personas_I}
@@ -225,7 +270,9 @@ export const CapituloI = () => {
             </div>
           </div>
         </div>
-        <button type="submit" className="btn btn-primary my-4">Guardar Capítulo I</button>
+        <div>
+          <button type="submit" className="btn btn-primary my-4">Guardar Capítulo I</button>
+        </div>
       </form>
 
       <ul className="list-group">
